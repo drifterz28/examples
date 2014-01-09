@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Light box demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        background-color: #f5f5f5;
+        postition:relative;
+      }
+
+    .quizWrapper {
+		height:1000px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+		position: relative;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+     h1 {text-align:center;}
+    .nav-list > li > a {
+		padding: 0px 15px;
+	}
+    #movebox {
+    	position: absolute;
+		width: 100px;
+		height: 100px;
+		margin: auto;
+		top: 20px;
+		left: 0;
+		right: 0;
+    }
+	
+	.blackout.lightup {
+		position : absolute;
+		background:#000;
+		width:1px;
+		height:1px;
+		opacity: .8;
+		top:0;bottom:0;left:0;right:0;margin:auto;
+	}
+	
+	.light-me, .light-controls {display:none;}
+	
+	.light-me.lightup {
+		position : absolute;
+		background:#fff url(assets/img/loading-llama-2.gif) no-repeat center center;
+		width:400px;
+		height:400px;
+		top:10%;left:0;right:0;margin:auto;
+		display:none;
+	}
+	.light-me.lightup.noload {
+		background:#fff url(none) no-repeat -5000px center;	
+	}
+	.light-close {
+		top: -15px;
+		position: absolute;
+		background-image: url(assets/img/close-circle.png);
+		cursor: pointer;
+		height: 38px;
+		width: 38px;
+		right: -20px;
+		z-index:1999;
+	}
+	
+	.light-prev, .light-next {
+		height: 120px;
+		background-image: url(assets/img/arrows.png);
+		width: 100px;
+		cursor: pointer;
+		position: absolute;
+		margin: auto;
+		top: 0;
+		bottom: 0;
+	}
+	.light-title {
+		display: block;
+		top: 0;
+		position: absolute;
+		box-sizing: border-box;
+		background: #000;
+		color: #FFF;
+		width: 100%;
+		padding: 5px;
+	}
+	
+	.light-prev {left: -100px;background-position: center 0px;}
+	.light-next {right:-100px;background-position: center -375px;}
+	.light-prev:hover {background-position: center -115px;}
+	.light-next:hover {background-position: center -241px;}
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+		<div class="quizWrapper span12">
+			<h4>Multiple images with a youtube video in the mix.</h4>
+			
+			<a class="lightShow" title="This is a title" href="http://lorempixel.com/600/600/transport/5"><img class="img-polaroid" src="http://lorempixel.com/150/150/transport/5"></a>
+			<a class="lightShow" title="and another title" href="http://lorempixel.com/700/600/transport/3"><img class="img-polaroid" src="http://lorempixel.com/150/150/transport/3"></a>
+			<a class="lightShow" href="http://lorempixel.com/600/500/transport/7"><img class="img-polaroid" src="http://lorempixel.com/150/150/transport/7"></a>
+			<a class="lightShow" href="http://lorempixel.com/800/800/transport/8"><img class="img-polaroid" src="http://lorempixel.com/150/150/transport/8"></a>
+			<a class="lightShow" rel="inline" href="#Hideme"><img class="img-polaroid" src="http://lorempixel.com/150/150/nature/3"></a>
+			<a class="lightShow" rel="youtube" href="http://www.youtube.com/embed/P0ukYf_xvgc"><img class="img-polaroid" src="http://lorempixel.com/150/150/transport/1"></a>
+			
+			<!-- <h4>Single image, no slide show.</h4>
+			<a class="light" title="Look - Cat, meow!" href="http://lorempixel.com/600/600/cats/5"><img class="img-polaroid" src="http://lorempixel.com/200/200/cats/5"></a>
+			-->
+			<ul>
+				<li>TODO:</li>
+				<li><s>Chromeless youtube!</s> Nope, not now. too hard.</li>
+				<li>Add each image to the right or left and slide thru. not a must but a +</li>
+				<li><s>Add loading image</s></li>
+				<li>Add <s>video</s>, <s>inline</s> and ajax content</li>
+				<li><s>Add image title to slide</s></li>
+			</ul>
+			
+			<div style="display:none;" id="Hideme" class="span6">
+				<img class="img-polaroid pull-left" src="http://lorempixel.com/150/150/nature/3">
+				Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+			</div>
+		</div>
+	</div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="assets/js/easing.js"></script>
+    <script>
+(function( $ ) {
+	
+	
+	//	debug(this);
+	$.fn.lightBox = function() {
+		var thisClass = this, // set the init class
+			thisSelector = thisClass.selector.replace('.',''),
+			classLength,
+			$thisSlide;
+		$(thisClass).each(function(i){
+			$(this).attr('data-index',i);
+			classLength = i;
+		});
+		// do not show arrows if only one image
+		if(classLength < 1){
+			$(thisClass).addClass('noarrows');
+		}
+		
+		var intFrameWidth = $('html').width(),
+		intFrameHeight = $('html').height(),
+		thisClass = this,
+		
+	
+		lightbox = {
+			builder: function(){
+				
+				var theHtml = '<div class="blackout"></div>'+
+						'<div class="light-me">'+
+							'<div class="light-controls">'+
+								'<div class="light-prev"></div>'+
+								'<div class="light-next"></div>'+
+								'<div class="light-close"></div>'+
+							'</div>'+
+							'<div id="light-mainwrap" class="light-content"></div>'+
+						'</div>';
+				if($('.blackout').length < 1){
+					$('body').append(theHtml);
+				}
+			},	
+			init: function(){
+				lightbox.builder();
+			},
+			image: function(imgSrc){
+				$('.light-controls, .light-title').hide();
+				$('.light-content').empty().html('<img class="light-img" style="display:none" src="'+imgSrc+'">');
+				var img = new Image();
+					img.onload = function() {
+						$('.light-me').animate({'height':this.height,'width':this.width},300,function(){
+							$('.light-img, .light-controls, .light-title').fadeIn();
+						});
+				}
+			img.src = imgSrc;		
+			},
+			inline: function(contentsrc){
+				var htmlContent = $(contentsrc).html();
+				$('body').append('<div class="light-content-wrapper" style="left:-99999px;position:absolute;width:600px;">'+htmlContent+'</div>');
+				$('.light-img, .light-controls, .light-title').fadeIn();
+				var wrapperHeight = $('.light-content-wrapper').height();
+				var wrapperWidth = $('.light-content-wrapper').width();
+				$('.light-content').empty().html('<p>'+htmlContent+'</p>');
+				$('.light-me').animate({'height':wrapperHeight,'width':wrapperWidth},300);
+				$('.light-me').addClass('noload');
+				$('.light-content-wrapper').remove();
+			},
+			youtube: function(imgSrc){
+				// hide controlles
+				$('.light-controls, .light-title, .light-video').hide();
+				// add google youtube api fun script.
+				var fragment = document.createDocumentFragment(),
+					googleJsapi = document.createElement('script'),
+					swfObject = document.createElement('script'),
+					firstScriptTag = document.getElementsByTagName('script')[0],
+					player,
+					video_width = 853,
+					video_height = 480;
+					
+	  			googleJsapi.src = "//www.google.com/jsapi";
+	  			swfObject.src = "//ajax.googleapis.com/ajax/libs/swfobject/2.1/swfobject.js";
+	  			fragment.appendChild(googleJsapi);
+	  			fragment.appendChild(swfObject);
+	  			
+	  			firstScriptTag.parentNode.insertBefore(fragment, firstScriptTag);
+	  			
+    			
+				checkYT();
+				function loadVideo(){
+					$('.light-content').empty(); //.html('<iframe id="ytPlayer" type="text/html" width="853" height="480" src="'+imgSrc+'?rel=0&autoplay=1&enablejsapi=1&wmode=opaque&origin='+location.protocol+'//'+location.hostname+'" frameborder="0" allowfullscreen></iframe>');
+					$('.light-me').animate({'height':480,'width':853},300,function(){	
+						setTimeout(function(){
+							// slight delay to help with lightbox loading.
+							//loadPlayer();
+							google.setOnLoadCallback(function(){
+								console.log('google setonload')
+							});
+							loadPlayer();
+							lightbox.playerControlles();
+							$('.light-img, .light-controls, .light-video').fadeIn();
+						},100);
+					});
+				}
+			},
+			getType: function($Slide){
+				var $thisHREF = $Slide.attr('href'),
+					$thisTitle = $Slide.attr('title') || '',
+					$thisType = $Slide.attr('rel');
+				
+				if($thisTitle.length > 0){
+					lightbox.showTitle($thisTitle);
+				}else{
+					$('.light-title').remove();
+				}
+				
+				if($Slide.hasClass('noarrows')){
+					$('.light-prev, .light-next').hide();
+				}else{
+					$('.light-prev, .light-next').show();
+				}
+				
+				switch($thisType){
+					case 'youtube':
+						lightbox.youtube($thisHREF);
+					break;
+					case 'inline':
+						lightbox.inline($thisHREF);
+					break;
+					case 'ajax':
+						// soon
+					break;
+					default:
+						lightbox.image($thisHREF);
+				}				
+			},
+			showTitle: function($thisTitle){
+				$('.light-me').append('<span style="display:none;" class="light-title">'+ $thisTitle +'</span>');
+			},
+			playerControlles: function(){
+				$('.light-me').append('<div style="display:none;" class="light-video"><span class="videoCurrentTime"></span><span class="videoDuration"></span></div>');
+			},
+			blackoutOpen: function(){
+				$('.blackout').addClass('lightup').show().animate({'width':intFrameWidth,'height':intFrameHeight},500,function(){
+					$('.light-me').addClass('lightup').fadeIn();
+				});
+			},
+			blackoutClose: function(){
+				$('.light-me').fadeOut().removeClass('lightup');
+				$('.blackout').animate({'width':1,'height':1},500,'easeInOutQuint',function(){
+					$(this).removeClass('lightup').fadeOut();
+					$('.light-controls').hide();
+					$('.light-title').remove();
+					$('.light-content').empty();
+					$('.light-me').removeClass('noload');
+					$('.light-active').removeClass('light-active');
+				});
+			}
+		};
+		
+		//debug($(this));
+		lightbox.init(); // build into DOM
+		// first click on any image with matching class
+		this.on('click', function(e){
+			$thisSlide = $(this);
+			e.preventDefault();
+			
+			// if new image is clicked before animation is complete
+			// this will stop funny things
+			$('.blackout').finish();
+			$(thisClass).removeClass('light-active');
+			$thisSlide.addClass('light-active');
+			lightbox.getType($thisSlide);
+			lightbox.blackoutOpen();
+		});
+		
+		// view next image / content / anything
+		$('body').on('click','.light-next',function(){
+			var $thisSlide = $('.light-active').next();
+			if(!$thisSlide.hasClass(thisSelector)){
+				$thisSlide = $('.'+thisSelector+':nth(0)');
+			}
+			$('.light-me').removeClass('noload');
+			$(thisClass).removeClass('light-active');
+			$thisSlide.addClass('light-active');
+			lightbox.getType($thisSlide);
+		});
+		
+		// view prev image / content / anything
+		$('body').on('click','.light-prev',function(){
+			var $thisSlide = $('.light-active').prev();
+			
+			if(!$thisSlide.hasClass(thisSelector)){
+				$thisSlide = $('.'+thisSelector+':nth('+classLength+')');
+			}
+			$('.light-me').removeClass('noload');
+			$(thisClass).removeClass('light-active');
+			$thisSlide.addClass('light-active');
+			lightbox.getType($thisSlide);
+		});
+		
+		// close lightbox with close image or anywere else
+		$('body').on('click','.blackout, .light-close',function(){
+			lightbox.blackoutClose();
+		});
+	};
+	//return thisClass;
+	// Private function for debugging.
+    function debug( $obj ) {
+        if ( window.console && window.console.log ) {
+            console.log($obj+'\nType of: '+typeof $obj);
+        }
+    };
+    
+})( jQuery );
+
+$('.lightShow').lightBox();
+
+//$('.light').lightBox();
+
+	</script>
+
+  </body>
+</html>

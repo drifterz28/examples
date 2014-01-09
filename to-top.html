@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tool tip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .quizWrapper {
+        max-width: 700px;
+		height:1500px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+		overflow: hidden;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+	#scrollInBox {
+		width:300px;
+		height:150px;
+		position: fixed;
+		color:#fff;
+		background: none repeat scroll 0 0 blue;
+		bottom: 20px;
+	}
+	#to-top {
+		text-indent:-9999px;
+		background: url(data:image/gif;base64,R0lGODlhMAAhALMAADMzM7Lr/zMzbP/SjGwzM//S0tLr///rsjMzjIwzM///0tL/////6//r0uvr/////yH5BAEHAA8ALAAAAAAwACEAAAS68MlJq5XN3M27P4QQeGR5gQAgmiyJpurYztULx3Ru33jO7rye70MIBldDDtCYQiySpyLT6IRSllNY1YrNap/Jrvc7FI/JNPMZ/ZOux9uS+n2Ld+b0Oljpzq/tNX1wCwoJdIASeGiFh3uJgl52jG9xik2OEpN/T5YAiJmGlE8Doh2aXkgPpIMkp0ypEqtTnxeuPLATskG0G7YpuBS6bCy2wBXCvB6nxhayya2hzBekzyWF0hsFmEMMDhwRADs=) no-repeat center center #fff;
+		width: 50px;
+		height: 40px;
+		position: fixed;
+		left:0px;
+		display:none;
+		bottom: 0;
+		cursor: pointer;
+		-webkit-transition:left 0.2s ease;
+    		-ms-transition:left 0.2s ease;
+        		transition:left 0.2s ease;
+	}
+	#to-top.scrollIn {
+		left:0;
+	}
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+		<div class="quizWrapper">
+		Lorem ipsum dolor sit amet, <a href="#" data-tool-tip-location="top" data-tool-tip="See a tool tip here, tool tips have a max width set to 200px and will wrap when larger.">consectetur</a> adipiscing elit. Proin placerat, massa rutrum ultrices venenatis, mi leo porta ipsum, in malesuada ante ante sed sem. Maecenas sapien sem, mollis <a href="#" data-tool-tip-location="bottom" data-tool-tip="All Styles are included on in the script.">consectetur</a> quis lacinia non, adipiscing sed risus. Mauris cursus molestie velit, vel ornare libero faucibus a. Phasellus sodales sagittis nisi, <a href="#" data-tool-tip-location="left" data-tool-tip="See a tool tip here">consectetur</a> auctor eleifend sapien dignissim sit amet. Donec sed nisi leo, at elementum augue. Mauris nunc nunc, consequat a mollis non, rhoncus id dui. Mauris ut turpis augue. Donec fermentum nunc lacus. Aliquam vel libero ut diam ullamcorper luctus <a href="#" data-tool-tip-location="right" data-tool-tip="See a tool tip here">consectetur</a> sed ut sem. Phasellus congue dignissim tortor et porta. Mauris ut enim vitae ligula mollis tempus. Sed hendrerit commodo iaculis. Sed bibendum ante at mauris rhoncus sodales.
+			</div>
+	</div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script>
+(function($) {
+	var settings = {
+		scrollSpeed:500,
+		arrowIn : 200
+	},
+	arrowDiv = document.createElement('div'),
+	docBody = document.getElementsByTagName('body')[0];
+	arrowDiv.id = 'to-top';
+	arrowDiv.innerHTML = '^';
+	docBody.appendChild(arrowDiv);
+	
+	$(window).scroll(function() {
+		if($(this).scrollTop() >= settings.arrowIn) {
+			$('#to-top').fadeIn();	
+		} else {
+			$('#to-top').fadeOut();
+		}
+	});
+ 
+	$('body').on('click','#to-top',function() {
+		$('body,html').animate({scrollTop:0},settings.scrollSpeed);
+	});
+})(jQuery);
+	</script>
+
+  </body>
+</html>

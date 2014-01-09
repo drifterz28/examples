@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Light box demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        background-color: #f5f5f5;
+        postition:relative;
+      }
+
+    .quizWrapper {
+		height:1000px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+		position: relative;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+     h1 {text-align:center;}
+    .nav-list > li > a {
+		padding: 0px 15px;
+	}
+    #movebox {
+    	position: absolute;
+		width: 100px;
+		height: 100px;
+		margin: auto;
+		top: 20px;
+		left: 0;
+		right: 0;
+    }
+	
+	.blackout.lightup {
+		position : absolute;
+		background:#000;
+		width:1px;
+		height:1px;
+		opacity: .8;
+		top:0;bottom:0;left:0;right:0;margin:auto;
+	}
+	
+	.light-me, .light-controls {display:none;}
+	
+	.light-me.lightup {
+		position : absolute;
+		background:#fff url(assets/img/loading-llama-2.gif) no-repeat center center;
+		width:400px;
+		height:400px;
+		top:10%;left:0;right:0;margin:auto;
+		display:none;
+	}
+	.light-me.lightup.noload {
+		background:#fff url(none) no-repeat -5000px center;	
+	}
+	.light-close {
+		top: -15px;
+		position: absolute;
+		background-image: url(assets/img/close-circle.png);
+		cursor: pointer;
+		height: 38px;
+		width: 38px;
+		right: -20px;
+		z-index:1999;
+	}
+	
+	.light-prev, .light-next {
+		height: 120px;
+		background-image: url(assets/img/arrows.png);
+		width: 100px;
+		cursor: pointer;
+		position: absolute;
+		margin: auto;
+		top: 0;
+		bottom: 0;
+	}
+	.light-title {
+		display: block;
+		top: 0;
+		position: absolute;
+		box-sizing: border-box;
+		background: #000;
+		color: #FFF;
+		width: 100%;
+		padding: 5px;
+	}
+	
+	.light-prev {left: -100px;background-position: center 0px;}
+	.light-next {right:-100px;background-position: center -375px;}
+	.light-prev:hover {background-position: center -115px;}
+	.light-next:hover {background-position: center -241px;}
+	
+	.ajax-progress {
+		position: fixed;
+		height: 2px;
+		width: 100%;
+		background: #F00;
+		top: -3px;
+	/*	-moz-animation-duration: 3s;
+      	-webkit-animation-duration: 3s;
+      	-moz-animation-name: slidein;
+      	-webkit-animation-name: slidein; */
+	}
+	
+	@-moz-keyframes slidein {
+      0% {
+        width:0%;
+        top:0px;
+      }
+      
+      90% {
+        width:120%;
+        top:0px;
+      }
+      100% {
+ 		width:120%;
+      	top:-3px;
+      }
+    }
+    
+    @-webkit-keyframes slidein {
+      0% {
+        width:0%;
+        top:0px;
+      }
+      
+      90% {
+        width:120%;
+        top:0px;
+      }
+      100% {
+      	top:0px;
+      	top:-3px;	
+      }
+    }
+	
+	.progress-shadow {
+		box-shadow: 1px 1px 1px #F00;
+		background: #F00;
+		width: 100px;
+		height: 2px;
+		position: relative;
+		float: right;
+	}
+	
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+    	<a href="ajax-loader.html">This page again</a>
+		<div class="quizWrapper span12">
+			<img class="img-polaroid" src="http://lorempixel.com/500/500/cats">
+		</div>
+	</div> <!-- /container -->
+	<div class="ajax-progress"><div class="progress-shadow"></div></div>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="assets/js/easing.js"></script>
+<script>
+(function( $ ) {
+	
+	var currentSite = location.hostname,
+    container = '.container',
+    insertIn = '.container';
+
+if (history.pushState) {
+	$('.container').on('click','a',function(e){
+		e.preventDefault();
+		var click_link = $(this).attr('href');
+		// internal link check
+		if(click_link.indexOf(currentSite) === -1 && click_link.indexOf("http") > 0){
+			//return;
+		}
+		$('body,html').animate({
+			scrollTop: 0
+		}, 200);
+		
+		$.ajax({
+			xhr: function(){
+			  var xhr = new window.XMLHttpRequest();
+			  //Upload progress
+			  xhr.upload.addEventListener("progress", function(evt){
+			    if (evt.lengthComputable) {
+			      var percentComplete = evt.loaded / evt.total;
+			      //Do something with upload progress
+			      console.log(percentComplete);
+			    }
+			  }, false);
+			  //Download progress
+			  xhr.addEventListener("progress", function(evt){
+			    if (evt.lengthComputable) {
+			      var percentComplete = evt.loaded / evt.total;
+			      //Do something with download progress
+			      console.log(percentComplete);
+			    }
+			  }, false);
+			  return xhr;
+			},
+			dataType:'html',
+			url: click_link,
+			success: function(data){
+				$(container).slideUp(500,function(){
+					$('body, a').css('cursor', 'wait');
+					$(this).empty();
+					if(window.history && window.history.pushState){
+						window.history.pushState('Herbalist', $(this).text(), click_link);
+					}
+				//	console.log(data);
+					$(container).slideDown();
+					$('body').css('cursor', 'inherit');
+					$('a').css('cursor', 'pointer');
+					e.preventDefault(); // prevent default only if this is done.
+				});
+			}
+		});
+		
+		
+	});
+}
+})( jQuery );
+</script>
+
+  </body>
+</html>

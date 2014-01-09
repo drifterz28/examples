@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		Dreams
+	</title>
+	<style>
+		body {
+			background-image:url(assets/img/bg-marshmellows.jpg);
+			background-position:center center;
+		}
+		.main {
+			background-image: url(assets/img/marshmellows.jpg);
+			background-repeat: no-repeat;
+			background-position: right bottom;
+			height: 470px;
+			width: 800px;
+			margin: auto;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+		
+		.first, .second {display:none;position: absolute;}
+		
+		.first {bottom:340px;}
+		.second {bottom: 400px;}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<h1 class="first">Where there is a dream...</h1>
+		<h1 class="second">Someone is always there to shit on it.</h1>
+	</div>
+</body>
+<script src="assets/js/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+<script>
+$(function(){
+	setTimeout(function(){
+		$('.first').fadeIn(2000,function(){
+			$('.main').animate({'height':'700px'},700,function(){
+				$('.second').fadeIn(1000,function(){
+					console.log('done');
+				});
+			});
+		});
+	},1000);
+});
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{Title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+    	.container h1 {text-align:center;}
+    	.container {}
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+  	<div class="container">
+    	<h1>Big Text</h1>
+	</div>
+    <div class="container example">
+    
+		<p>This is some text that I have</p>
+		<p>this is some more text</p>
+		
+	</div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+	
+	<script>
+(function ($) {
+    function scanText(elm) {
+        var $elm = $(elm),
+            words = $elm.text().split(" ");
+        for (var x = 0; x < words.length; x++) {
+            if (keywords[words[x].toLowerCase()]) {
+                words[x] = '<a target="_blank" href="' + keywords[words[x].toLowerCase()] +
+                    '">' + words[x] + '</a>';
+            }
+        }
+        $elm.html(words.join(' '));
+    }
+
+    $.fn.linkBuilder = function(keywords) {
+        return this.each(function() {
+            scanText(this);       
+        });
+    };
+}(jQuery));
+
+var keywords = {
+    "text": "http://google.com",
+    "some": "http://example.com",
+    "this": "http://e-commsolution.com"
+};
+
+$(function(){
+	$('p').linkBuilder(keywords);
+});
+	</script>
+</body>
+</html>
