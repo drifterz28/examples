@@ -20,16 +20,16 @@
     	<h1>Big Text</h1>
 	</div>
     <div class="container example">
-    
+
 		<p>This is some text that I have</p>
 		<p>this is some more text</p>
-		
+
 	</div> <!-- /container -->
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery.js"></script>
-	
+
 	<script>
 (function ($) {
     function scanText(elm) {
@@ -37,16 +37,15 @@
             words = $elm.text().split(" ");
         for (var x = 0; x < words.length; x++) {
             if (keywords[words[x].toLowerCase()]) {
-                words[x] = '<a target="_blank" href="' + keywords[words[x].toLowerCase()] +
-                    '">' + words[x] + '</a>';
+                words[x] = '<a target="_blank" href="' + keywords[words[x].toLowerCase()] + '">' + words[x] + '</a>';
             }
         }
-        $elm.html(words.join(' '));
+        $elm.html(words.join(''));
     }
 
     $.fn.linkBuilder = function(keywords) {
         return this.each(function() {
-            scanText(this);       
+            scanText(this);
         });
     };
 }(jQuery));
