@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+     
+	h2 {
+		font-size: 20px;
+	}
+	/* 10 cells wide and at least 22 cells tall, where rows above 20 are hidden or obstructed by the field frame */
+	.tetris-wraper {width:300px;height:600px;border:5px outset blue;}
+	.tetris-board {}
+	.tetris-next {}
+	.tetris-hold {}
+	.tetris-block {width:30px;height:30px;background:red;float:left;border:1px solid black;box-sizing: border-box;}
+	
+	.tetris-block-L, 
+	.tetris-block-S, 
+	.tetris-block-Z, 
+	.tetris-block-O, 
+	.tetris-block-I, 
+	.tetris-block-J, 
+	.tetris-block-T {
+		position: relative;}
+		
+	.tetris-block-L > div, 
+	.tetris-block-S > div, 
+	.tetris-block-Z > div, 
+	.tetris-block-O > div, 
+	.tetris-block-I > div, 
+	.tetris-block-J > div, 
+	.tetris-block-T > div {
+		position: absolute;}
+		
+	.tetris-block-L {left:130px;}
+	.tetris-block-L > div {background:Orange;}
+	.tetris-block-L .block1 {top:30px;left:0;}
+	.tetris-block-L .block2 {top:30px;left:30px;}
+	.tetris-block-L .block3 {top:30px;left:60px;}
+	.tetris-block-L .block4 {top:0;left:0;}
+	
+	.tetris-block-S {}
+	.tetris-block-S > div {background:Green;}
+	.tetris-block-S .block1 {top:30px;left:0;}
+	.tetris-block-S .block2 {top:30px;left:30px;}
+	.tetris-block-S .block3 {top:0;left:30px;}
+	.tetris-block-S .block4 {top:0;left:60px;}
+	
+	.tetris-block-Z {top:200px;}
+	.tetris-block-Z > div {background:Red;}
+	.tetris-block-Z .block1 {top:0;left:0;}
+	.tetris-block-Z .block2 {top:0;left:30px;}
+	.tetris-block-Z .block3 {top:30px;left:30px;}
+	.tetris-block-Z .block4 {top:30px;left:60px;}
+	
+	.tetris-block-O {top:200px;left:130px;}
+	.tetris-block-O > div {background:Yellow;}
+	.tetris-block-O .block1 {top:0;left:0;}
+	.tetris-block-O .block2 {top:30px;left:0;}
+	.tetris-block-O .block3 {top:0;left:30px;}
+	.tetris-block-O .block4 {top:30px;left:30px;}
+	
+	.tetris-block-I {top:300px;}
+	.tetris-block-I > div {background:Cyan;}
+	.tetris-block-I .block1 {top:0;left:0;}
+	.tetris-block-I .block2 {top:0;left:30px;}
+	.tetris-block-I .block3 {top:0;left:60px;}
+	.tetris-block-I .block4 {top:0;left:90px;}
+	
+	.tetris-block-J {top:300px;left:130px;}
+	.tetris-block-J > div {background:Blue;}
+	.tetris-block-J .block1 {top:30px;left:0;}
+	.tetris-block-J .block2 {top:30px;left:30px;}
+	.tetris-block-J .block3 {top:30px;left:60px;}
+	.tetris-block-J .block4 {top:0px;left:60px;}
+	
+	.tetris-block-T {top:500px;}
+	.tetris-block-T > div {background:Purple;}
+	.tetris-block-T .block1 {top:30px;left:0;}
+	.tetris-block-T .block2 {top:30px;left:30px;}
+	.tetris-block-T .block3 {top:30px;left:60px;}
+	.tetris-block-T .block4 {top:0px;left:30px;}
+	
+	.rotate90 {
+		-webkit-transform:rotate(90deg);
+		-moz-transform:rotate(90deg);
+		-o-transform:rotate(90deg);
+		-ms-transform:rotate(90deg);
+		transform:rotate(90deg);
+	}
+	.rotate180 {
+		-webkit-transform:rotate(180deg);
+		-moz-transform:rotate(180deg);
+		-o-transform:rotate(180deg);
+		-ms-transform:rotate(180deg);
+		transform:rotate(180deg);
+	}
+	.rotate270 {
+		-webkit-transform:rotate(270deg);
+		-moz-transform:rotate(270deg);
+		-o-transform:rotate(270deg);
+		-ms-transform:rotate(270deg);
+		transform:rotate(270deg);
+	}
+	
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="tetris-wraper">
+      	<div class="tetris-hold"></div>
+      	<div class="tetris-next"></div>
+      	<div class="tetris-board">
+      		<div class="tetris-block-T">
+      			<div class="tetris-block block1"></div>
+      			<div class="tetris-block block2"></div>
+      			<div class="tetris-block block3"></div>
+      			<div class="tetris-block block4"></div>
+      		</div>
+      		<div class="tetris-block-J">
+      			<div class="tetris-block block1"></div>
+      			<div class="tetris-block block2"></div>
+      			<div class="tetris-block block3"></div>
+      			<div class="tetris-block block4"></div>
+      		</div>
+      		<div class="tetris-block-I">
+      			<div class="tetris-block block1"></div>
+      			<div class="tetris-block block2"></div>
+      			<div class="tetris-block block3"></div>
+      			<div class="tetris-block block4"></div>
+      		</div>
+      		<div class="tetris-block-O">
+      			<div class="tetris-block block1"></div>
+      			<div class="tetris-block block2"></div>
+      			<div class="tetris-block block3"></div>
+      			<div class="tetris-block block4"></div>
+      		</div>
+      		<div class="tetris-block-Z">
+      			<div class="tetris-block block1"></div>
+      			<div class="tetris-block block2"></div>
+      			<div class="tetris-block block3"></div>
+      			<div class="tetris-block block4"></div>
+      		</div>
+      		<div class="tetris-block-S">
+      			<div class="tetris-block block1"></div>
+      			<div class="tetris-block block2"></div>
+      			<div class="tetris-block block3"></div>
+      			<div class="tetris-block block4"></div>
+      		</div>
+      		<div class="tetris-block-L">
+      			<div class="tetris-block block1"></div>
+      			<div class="tetris-block block2"></div>
+      			<div class="tetris-block block3"></div>
+      			<div class="tetris-block block4"></div>
+      		</div>
+      	</div>
+      </div>
+    </div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+<script>
+$(function(){
+
+});
+</script>
+
+  </body>
+</html>

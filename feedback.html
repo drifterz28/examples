@@ -1,0 +1,131 @@
+﻿<? $_SERVER['REMOTE_HOST'] = '50.23.274.23'; ?>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Your Page Title Here :)</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+<style>
+
+</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="sixteen columns">
+			<h1 class="remove-bottom" style="margin-top: 40px"><a href="index.php">Skeleton</a></h1>
+			<h5>Version 1.1</h5>
+			<hr />
+		</div>
+<div class="one-third column">
+	<h3>About Skeleton?</h3>
+			<p><a href="index.php">Skeleton</a> is a small collection of well-organized CSS &amp; JS files that can help you rapidly develop sites that look beautiful at any size, be it a 17" laptop screen or an iPhone. It's based on a responsive grid, but also provides very basic CSS for typography, buttons, tabs, forms and media queries. Go ahead, resize this super basic page to see the grid in action.</p>
+		</div>
+		<div class="one-third column">
+			<h3>Three Core Principles</h3>
+			<p>Skeleton is built on three core principles:</p>
+			<ul class="square">
+				<li><strong>A Responsive Grid Down To Mobile</strong>: Elegant scaling from a browser to tablets to mobile.</li>
+				<li><strong>Fast to Start</strong>: It's a tool for rapid development with best practices</li>
+				<li><strong>Style Agnostic</strong>: It provides the most basic, beautiful styles, but is meant to be overwritten.</li>
+			</ul>
+		</div>
+		<div class="one-third column">
+			<h3>Docs &amp; Support</h3>
+			<p>The easiest way to really get started with Skeleton is to check out the full docs and info at <a href="http://www.getskeleton.com">www.getskeleton.com.</a>. Skeleton is also open-source and has a <a href="https://github.com/dhgamache/skeleton">project on git</a>, so check that out if you want to report bugs or create a pull request. If you have any questions, thoughts, concerns or feedback, please don't hesitate to email me at <a href="mailto:hi@getskeleton.com">hi@getskeleton.com</a>.</p>
+		</div>
+		<div id="demo" class="column">
+			<p>Bacon ipsum dolor sit amet leberkas sausage andouille, rump prosciutto speck tongue. Turducken fatback shank tail chuck ball tip ribeye pig t-bone, speck spare ribs short loin. Short loin spare ribs pig, fatback chuck shankle chicken leberkas sausage turducken jowl bacon beef cow speck. T-bone ham hock capicola, frankfurter tenderloin leberkas spare ribs sirloin pork chop hamburger swine ham bacon short loin pancetta. Cow jerky shankle, meatball rump ground round pastrami prosciutto.
+
+</p><p>Venison ribeye cow, pork belly t-bone tail pork chop fatback jowl andouille brisket flank meatball biltong. Turkey frankfurter pig pork pancetta leberkas. Fatback sirloin tail, turkey ground round venison shoulder filet mignon kielbasa pork loin frankfurter salami meatball boudin shank. Tri-tip pancetta meatball pork loin t-bone. Ground round fatback meatloaf sirloin. Short loin shank pork loin turkey salami strip steak, rump short ribs beef ribs.
+
+</p><p>Bacon swine ham, capicola cow pastrami short loin pig. Ribeye ground round sirloin, shankle sausage prosciutto kielbasa. Corned beef venison flank filet mignon, tenderloin swine pork loin turducken ham chuck hamburger tail meatloaf. Drumstick pancetta pork pastrami prosciutto speck. Kielbasa swine corned beef rump ribeye, cow beef drumstick boudin pig jowl. Prosciutto capicola leberkas spare ribs short ribs. Bresaola tongue meatloaf ribeye tenderloin.
+
+</p><p>Andouille turducken swine shoulder, prosciutto brisket ham fatback flank t-bone hamburger. Bresaola drumstick pig shank tail biltong pork chop ribeye. Ham kielbasa bresaola capicola. Flank meatball filet mignon turducken rump turkey jowl, pork belly tri-tip.
+
+</p><p>Turkey short loin filet mignon, ground round biltong boudin kielbasa. Pork tongue pancetta sausage ham, chuck venison filet mignon beef ribs turducken leberkas. Flank bresaola tail andouille, bacon short loin prosciutto sausage short ribs venison pastrami corned beef. Jowl ham hock sausage short loin swine, ball tip bresaola spare ribs tri-tip pig. Leberkas ham hock corned beef beef ribs venison brisket, frankfurter prosciutto turkey sirloin.
+
+</p><p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!
+	</p>
+	</div>
+
+	</div><!-- container -->
+	<!-- JS ================================================== -->
+<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script> -->
+
+<script>
+$(function(){
+	var location = 'right';
+	var v_location = 'top';
+	var v_location_dist = '10%';
+	var feedback_location = 'top';
+	if(location === 'left'){
+		var location_swap = 'right';
+	}else{
+		var location_swap = 'left';
+	}
+	var form_build = '<div id="gp_feedback">';
+			form_build += '<a id="feedback_button" href="#"><img src="feedback.png"></a>';
+			form_build += '<div id="feedback_content"><p>form content here.</p>';
+			form_build += '<form>';
+			form_build +=	'<div class="input-radio">';
+			form_build +=	'<label class="radio-label">How do you like the overall look of our site?</label><input type="radio" name="feedback-primary" id="feedback-primary-like" value="like" />';
+			form_build +=	'<label for="feedback-primary-like">Like</label>';
+      form_build +=	'<input type="radio" name="feedback-primary" id="feedback-primary-dislike" value="dislike" />';
+			form_build +=	'<label for="feedback-primary-dislike">Dislike</label></div>';
+      form_build +=	'<div class="input-textarea">';
+      form_build +=	'<label for="comments">Comments</label>';
+			form_build +=	'<textarea id="comments" name="comments"></textarea></div>';   
+      form_build +=	'<div class="input"><input type="submit" value="Submit" class="disabled" />';
+      form_build +=	'</div></form></div></div>';
+			
+	var Styles = '#gp_feedback {position: fixed;padding-'+location_swap+':37px;'+v_location+':'+v_location_dist+';'+location+': -300px;}';
+			Styles += '#feedback_button {background:#003366;position: absolute;width:38px;'+location_swap+': 0px;'+feedback_location+': 20px;}';
+			Styles += '#feedback_button img {height: auto;max-width: 100%;}';
+			Styles += '#feedback_content {background: none repeat scroll 0 0 #fff;padding:10px;border: 1px solid #003366;height: 300px;-moz-box-sizing: border-box;width: 300px;}';
+			Styles += '#feedback_content div {float:left;width:100%;}';
+			Styles += '.input-radio input {float: left;height: 20px;width: 20px;}';
+			Styles += '.input-radio label {float: left;width: 60px;}';
+			Styles += '.input-radio .radio-label {width:100%;float:left;}';
+			Styles += '.input-textarea textarea{width:90%;height:75px;}';
+			Styles += '';
+	var options_close = {};
+	options_close[location] = '0';
+	var options_open = {};
+	options_open[location] = '-300px';
+	$('head').append('<style>'+Styles+'</style>');
+	$('body').after(form_build);
+	$('#feedback_button').live('click',function(e){
+		e.preventDefault();
+		if(!$(this).hasClass('open')){
+			$('#gp_feedback').animate(options_close,300);
+			$(this).addClass('open');
+		}else{
+			$('#gp_feedback').animate(options_open,300);
+			$(this).removeClass('open');
+		}
+	});
+});
+</script>
+
+<!-- End Document ================================================== -->
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <script type="text/javascript">
+        var language = "en";
+        var format = "audio/mp3";
+        var option = "MinSize"
+        var text = "Use pixels to express.";
+        function speak() {
+            PageMethods.GetAccessToken(OnSucceeded, OnFailed);
+        }
+        function OnSucceeded(result, usercontext, methodName) {
+
+            window.mycallback = function (response) { alert(response); }
+
+            var s = document.createElement("script");
+            s.src = "http://api.microsofttranslator.com/V2/Ajax.svc/Speak?oncomplete=mycallback&appId=Bearer " + encodeURIComponent(result.access_token) + "&text=" + text + "&language=" + language + "&format=" + format;
+            document.getElementsByTagName("head")[0].appendChild(s);
+        }
+        function OnFailed(error, userContext, methodName) {
+            alert("Error");
+        }
+        speak();
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
+        <asp:Button ID="buttonSpeak" runat="server" Text="Speak" OnClientClick="speak();return false;" />
+        <br />
+        <asp:Label ID="lblResult" runat="server"></asp:Label>
+    </div>
+    </form>
+</body>
+</html>

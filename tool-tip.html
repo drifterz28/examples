@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tool tip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .quizWrapper {
+        max-width: 700px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+		overflow: hidden;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .quizWrapper h2,
+      .quizWrapper .checkbox {
+        margin-bottom: 10px;
+      }
+      .quizWrapper input[type="text"],
+      .quizWrapper input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+	h2 {
+		font-size: 20px;
+	}
+	.answer {text-align:left;padding-left:10px;margin:15px 0;}
+	.next, .complete {float:right;width: 100px;}
+	.prev {width: 100px;}
+	.progress {margin-top:25px;}
+	.questionlist {
+		height: 300px;
+		position: relative;
+	}
+	.questions {position: absolute;left:0;width: 700px;}
+	
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+		<div class="quizWrapper">
+		Lorem ipsum dolor sit amet, <a href="#" data-tool-tip-location="top" data-tool-tip="See a tool tip here, tool tips have a max width set to 200px and will wrap when larger.">consectetur</a> adipiscing elit. Proin placerat, massa rutrum ultrices venenatis, mi leo porta ipsum, in malesuada ante ante sed sem. Maecenas sapien sem, mollis <a href="#" data-tool-tip-location="bottom" data-tool-tip="All Styles are included on in the script.">consectetur</a> quis lacinia non, adipiscing sed risus. Mauris cursus molestie velit, vel ornare libero faucibus a. Phasellus sodales sagittis nisi, <a href="#" data-tool-tip-location="left" data-tool-tip="See a tool tip here">consectetur</a> auctor eleifend sapien dignissim sit amet. Donec sed nisi leo, at elementum augue. Mauris nunc nunc, consequat a mollis non, rhoncus id dui. Mauris ut turpis augue. Donec fermentum nunc lacus. Aliquam vel libero ut diam ullamcorper luctus <a href="#" data-tool-tip-location="right" data-tool-tip="See a tool tip here">consectetur</a> sed ut sem. Phasellus congue dignissim tortor et porta. Mauris ut enim vitae ligula mollis tempus. Sed hendrerit commodo iaculis. Sed bibendum ante at mauris rhoncus sodales.
+			</div>
+	</div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script>
+$(function(){
+	tool_tip();
+	function tool_tip(options){
+	
+		var settings = $.extend({
+			'buildStyle': 'yes',
+			'borderColor' : '#efefef',
+			'background' : '#efefef',
+			'borderRadius': '5px',
+			'fontColor': '#303030',
+			'boxShadow': '#303030',
+			'maxWidth':'200px',
+			'template' : '<div id="tooltip" class="tooltips"><div class="tooltiparrow"></div><p></p></div>'
+		}, options);
+		
+		var styles = '#tooltip {position:absolute;min-height:1px;display:block;}';
+			styles += '.tooltiparrow {position: absolute; width: 0; height: 0; border-color: transparent; border-style: solid;}';
+			styles += '.bottom .tooltiparrow {top: -9px;left: 50%;margin-left: -10px;border-bottom-color: '+settings.borderColor+';border-width: 0 10px 10px;}';
+			styles += '.top .tooltiparrow {bottom: -9px;left: 50%;margin-left: -10px;border-top-color: '+settings.borderColor+';border-width: 10px 10px 0;}';
+			styles += '.left .tooltiparrow {top: 50%;right: -7px;margin-top: 0px;border-left-color:'+settings.borderColor+';border-width: 8px 0 8px 8px;}';
+			styles += '.right .tooltiparrow {top: 50%;left: -7px;margin-top: 0px;border-right-color:'+settings.borderColor+';border-width: 8px 8px 8px 0;}';
+			styles += '#tooltip p {line-height: 15px;min-height: 16px;max-width: '+settings.maxWidth+';text-shadow: 0 1px 0 #FFFFFF;margin: 0;background:'+settings.background+'; border: 1px solid '+settings.borderColor+';border-radius: '+settings.borderRadius+'; padding:3px 4px 2px; font-size: 11px; color:'+settings.fontColor+';box-shadow:0 2px 2px -2px '+settings.boxShadow+';}';
+		
+		if(settings.buildStyle === 'yes'){
+			$('head').append('<style>'+styles+'</style>');
+		}
+		
+		$('body').find('[data-tool-tip]').hover(function(){
+			var yax, xax;
+			var $this = $(this);
+			var titles = $this.attr('data-tool-tip');
+			var tippos = $this.attr('data-tool-tip-location') || 'bottom';
+			var elmWidth = $this.width();
+			var elmHeight = $this.height();
+			$('.tooltips').remove(); // clean out any old tips
+			$('body').append(settings.template);
+			$('#tooltip').addClass(tippos);
+			$('#tooltip p').text(titles);
+			switch(tippos){
+				case 'left':
+					// y axis = the top of the tool tip - half the popup + height of arrow border.
+					yax = $this.offset().top - ($('.tooltips').height() / 2) + 10;
+					xax = $this.offset().left - $('.tooltips').width() - 15;
+					$('.tooltiparrow').css({'top':$('.tooltips').height()/2-8});
+				break;
+				case 'right':
+					// y axis = the top of the tool tip - half the popup + height of arrow border.
+					yax = $this.offset().top - ($('.tooltips').height() / 2) + 10;
+					xax = $this.offset().left + elmWidth + 10;
+					$('.tooltiparrow').css({'top':$('.tooltips').height()/2-8});
+				break;
+				case 'top':
+					 yax = $this.offset().top - $('.tooltips').height() - 15;
+					 xax = $this.offset().left + (elmWidth/2) - $('.tooltips').width() / 2;
+				break;
+				default:
+					yax = $this.offset().top + elmHeight + 15;
+					xax = $this.offset().left + (elmWidth/2) - $('.tooltips').width() / 2;
+			}
+			
+			$('.tooltips').css({'top':yax , 'left':xax}).fadeIn();
+		},function(){
+			$('.tooltips').fadeOut('fast', function(){
+				$(this).remove();
+			});
+		});
+	}
+});
+	</script>
+
+  </body>
+</html>

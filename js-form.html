@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tool tip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .quizWrapper {
+        max-width: 700px;
+		height:1500px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+		overflow: hidden;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+	#scrollInBox {
+		width:300px;
+		height:150px;
+		position: fixed;
+		color:#fff;
+		background: none repeat scroll 0 0 blue;
+		bottom: 20px;
+	}
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+		<div class="quizWrapper">
+			<div id="requestinfo" data-type="arcflash"></div>
+		</div>
+	</div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script>	
+(function( $, undefined ) {
+	var formWrapper = document.getElementById('requestinfo'),
+		formType = formWrapper.getAttribute('data-type'),
+		langType = document.getElementsByTagName('html')[0].getAttribute('lang'),
+		formCSS = 'http://www.duralabel.com/forms/formfiles/form.css',
+		apiURL = 'http://dev.preview.duralabel.com/admin-tools/api/json/forms/form?type='+formType+'&callback=JSONPCallback',
+		langFiles = 'http://www.duralabel.com/forms/language/',
+		formAction = 'http://www.duralabel.com/forms/formfiles/form-post.php';
+	
+	console.log(langType+' '+formType);
+	
+	var jsonp = {
+		// From http://javascriptweblog.wordpress.com/2010/11/29/json-and-jsonp/
+		// Thank you.
+		fetch: function(url, callback) {
+			var fn = 'JSONPCallback';
+			window[fn] = this.evalJSONP(callback);
+			url = url.replace('=JSONPCallback', '=' + fn);
+			var scriptTag = document.createElement('SCRIPT');
+			scriptTag.src = url;
+			document.getElementsByTagName('HEAD')[0].appendChild(scriptTag);
+		},
+
+		evalJSONP: function(callback){
+			return function(data) {
+				var validJSON = false;
+				if (typeof data === "string") {
+					validJSON = JSON.parse(data);
+				} else {
+					validJSON = JSON.parse(JSON.stringify(data));
+				}
+				if (validJSON) {
+					callback(validJSON);
+				} else {
+					throw("JSONP call returned invalid or empty JSON");
+				}
+			}
+		}
+	}
+	
+	
+	function form_builder(){
+		
+		var fragment = document.createDocumentFragment(),
+			stylesheet = document.createElement('link');
+			stylesheet.href = formCSS;
+			stylesheet.rel = 'stylesheet';
+		// Building the form header and form input wrappers
+		// create form header
+		var formHead = document.createElement('div');
+			formHead.setAttribute('class','formHead');
+			// creating this DOM elements for ease of use. will need logic for display.
+			formHead.innerHTML = '<h2>Add dynamic form content here</h2><img class="ribbon" src="http://www.duralabel.com/forms/formfiles/images/free-ribbon.png">';
+			
+		// page break for 2 part form
+		var formPage1 = document.createElement('div'),
+			formPage2 = document.createElement('div');
+			formPage1.id = 'page1';
+			formPage2.id = 'page2';
+			formPage2.innerHTML = '<a href="#" id="back">Back</a>';
+			formPage2.style.display = 'none';
+		
+		//create form wrapper, keep this out of the loop
+		var requestForm = document.createElement('form');
+			requestForm.id = 'request_form';
+			requestForm.method = 'post';
+			requestForm.action = formAction;
+			requestForm.setAttribute('class','form-horizontal');
+		
+		// create form footer with 2 buttons, one submit and one continue
+		var formFooter = document.createElement('div'),
+			formSubmit = document.createElement('button'),
+			formContinue = document.createElement('button');
+			
+			formFooter.id = 'form-submit';
+			formFooter.setAttribute('class','form-actions');
+			formSubmit.id = 'SubmitButton';
+			formSubmit.type = 'submit';
+			formSubmit.textContent = 'Request Guide';
+			formSubmit.style.display = 'none';
+			formSubmit.setAttribute('class','btn btn-primary btn-large');
+			
+			formContinue.setAttribute('class','btn btn-primary btn-large next');
+			formContinue.textContent = 'Continue';
+			formFooter.appendChild(formSubmit);
+			formFooter.appendChild(formContinue);
+				
+		/**
+		* Building input fragments with this function
+		* Elements are in order of creation and insert (parent child relationships)
+		* (builds this)
+		* <div class="control-group">
+		*	<label class="control-label required" id="form_first_namelabel" for="first_name">
+		*		<span class="required-asterisk">*</span>First Name: </label>
+		*	<div class="controls">
+		*		<input type="text" name="first_name" class="input-xlarge required" id="first_name" value="">
+		*	</div>
+		*</div>
+		*
+		*/
+		
+		function inputBuilder(formfields) {
+			var controlGroup = document.createElement('div'),
+				label 		 = document.createElement('label'),
+				controls 	 = document.createElement('div');
+				required 	 = formfields.required || '';
+			
+			switch(formfields.type){
+				case 'input':
+					input = document.createElement('input');
+					input.type = 'text';
+				break;
+				case 'select':
+					input = document.createElement('select');
+					if(typeof formfields.options === 'object'){
+						for(x in formfields.options){
+							options = document.createElement("option");
+							options.value = x;
+							options.innerHTML = formfields.options[x];
+							input.appendChild(options);
+						}
+					}
+				break;
+				case 'textarea':
+					input = document.createElement('textarea');
+				break;
+			}
+			if(formfields.state === 'hidden'){
+				controlGroup.style.display = 'none';
+				input.setAttribute('disabled','disabled');
+				required = '';
+			}	
+			controlGroup.setAttribute('class','control-group');			
+			// label is within control group
+			label.setAttribute('class','control-label');
+			label.setAttribute('for',formfields.name);
+			label.id = 'form-'+formfields.name+'-label';
+			labelName = (required === 'required')? '<span class="required-asterisk">*</span>'+formfields.label : formfields.label;
+			label.innerHTML = labelName+': ';
+			// controls comes after the label
+			controls.setAttribute('class','controls');
+			// input is within control div.
+			input.id = formfields.name;
+			input.name = formfields.name;
+			input.setAttribute('class','input-xlarge '+required);
+			input.setAttribute('data-validation',formfields.validation);
+			// appending each elem into its parent
+			controls.appendChild(input);
+			controlGroup.appendChild(label);
+			controlGroup.appendChild(controls);
+			// add to fragment to fire once and only one reflow.
+			return controlGroup;
+		}
+		
+		for(x in form.formFields){
+			var page = form.formFields[x].page || false;
+			fragment.appendChild(inputBuilder(form.formFields[x]));
+			if(page){
+				formPage1.appendChild(fragment);
+				fragment.length = 0;
+			}
+		}
+		
+		/** 
+		 * append all child elements to the parent
+		 * before inseting into DOM.
+		 */
+		
+		formPage2.appendChild(fragment);
+		requestForm.appendChild(formPage1);
+		requestForm.appendChild(formPage2);
+		requestForm.appendChild(formFooter);
+		formWrapper.appendChild(stylesheet);
+		formWrapper.appendChild(formHead);
+		formWrapper.appendChild(requestForm);
+	}
+	
+	var valid = false;
+	var validate = {
+		
+		regEmail : /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+		phone : /^([\+]{0,1})([0-9 \.\(\)-]{7,})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/i,
+		caPostal : /^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$/,
+		checkMark : '<img class="successimg" src="http://www.duralabel.com/images/checkmark.png">',
+		isValid : false,
+		isValidCount : 0,
+			
+		// validate one form field
+		one: function($this){
+			validationType = $this.attr('data-validation');
+			if(validate[validationType]($this)){
+				if($('.successimg').length < 1){
+					$this.after(validate.checkMark);
+				}
+				$this.closest('.control-group').addClass('success').removeClass('error');
+			}else{
+				$this.closest('.control-group').addClass('error').removeClass('success');
+				$this.next('.successimg').remove();
+			}
+		},
+		selected: function($elems){
+			var count = 0,
+				elemsLength = $elems.length;
+			for(var x = 0; x < elemsLength;x++){
+				var $this = $($elems[x]),
+					validationType = $this.attr('data-validation');
+				console.log(x+' '+validationType);
+				if(validate[validationType]($this)){
+					count++;
+					if($('.successimg').length < 1){
+						$this.after(validate.checkMark);
+						$this.closest('.control-group').addClass('success').removeClass('error');
+					}
+				}else{
+					$this.closest('.control-group').addClass('error').removeClass('success');
+					$this.next('.successimg').remove();
+				}
+
+			}
+			console.log(count+' '+elemsLength);
+			return count >= elemsLength;
+			
+		},
+		nonempty : function($this){
+			return $this.val().length > 0;
+		},
+		email : function($this){
+			return validate.regEmail.test($this.val());
+		},
+		phone : function($this){
+			return validate.phone.test($this.val());
+		},
+		postal : function(v){
+			return validate.caPostal.test($this.val());
+		},
+		change_state: function($this){
+			if(isValid){
+				if($('.successimg').length < 1){
+					$this.after(validate.checkMark);
+					$this.closest('.control-group').addClass('success').removeClass('error');
+				}
+			}else{
+				$this.closest('.control-group').addClass('error').removeClass('success');
+				$this.next().remove();
+			}
+		},
+		validation: function(){
+			if(validationType === 'nonempty' && $thisValue.length > 0){
+				isValid = true;
+				console.log($thisValue.length);
+			}else{
+				isValidCount++;
+			}
+			if(regEmail.test($thisValue) && validationType === 'email'){
+				isValid = true;
+				console.log(regEmail.test($thisValue));
+			}else{
+				isValidCount++;
+			}		
+			
+		}
+	};
+	
+	if(formWrapper !== null){
+		form_builder();
+	}
+	$('#requestinfo').on('click','.next',function(e){
+		e.preventDefault();
+		if(validate.selected($('#page1 .required'))){
+			$('#page1').slideUp();
+			$(this).hide();
+			$('#page2').slideDown();
+			$('#SubmitButton').show();
+		}
+	});
+	
+	$('#requestinfo').on('click','#SubmitButton',function(e){
+		e.preventDefault();
+		if(validate.selected($('#request_form .required'))){
+			alert('Well done! you know how to fill out a form with basic info... you should be able to move on in life.');
+			return false;
+		}
+	});
+	
+	$('#requestinfo').on('click','#back',function(e){
+		e.preventDefault();
+		$('#page2').slideUp();
+		$('#SubmitButton').hide();
+		$('.next').show();
+		$('#page1').slideDown();
+	});
+	$('#requestinfo').on('focusout','.required',function(){
+		validate.one($(this));
+	});
+})( jQuery );
+</script>
+
+  </body>
+</html>

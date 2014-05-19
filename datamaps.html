@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>
+			Tool tip
+		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<!-- Le styles -->
+		<link href="assets/css/bootstrap.css" rel="stylesheet">
+		<style type="text/css">
+			body{
+				padding-top:40px;
+				padding-bottom:40px;
+				background-color:#f5f5f5;
+			}
+			.quizWrapper{
+				max-width:700px;
+				height:500px;
+				padding:19px29px29px;
+				margin:0auto20px;
+				position:relative;
+				background-color:#fff;
+				overflow:hidden;
+				border:1pxsolid#e5e5e5;
+				-webkit-border-radius:5px;
+				-moz-border-radius:5px;
+				border-radius:5px;
+				-webkit-box-shadow:01px2pxrgba(0,0,0,.05);-moz-box-shadow:01px2pxrgba(0,0,0,.05);box-shadow:01px2pxrgba(0,0,0,.05);
+			}
+		</style>
+		<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div id="arcs" style="position: relative; width: 800px; height: 750px;"></div>
+		</div>
+		<!-- /container -->
+		<!-- Le javascript
+		    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/d3.min.js"></script>
+		<script src="assets/js/topojson.js"></script>
+		<script src="assets/js/datamaps.world.min.js"></script>
+		<script src="assets/js/easing.js"></script>
+		<script>
+	var arcs = new Datamap({
+        scope: 'world',
+        element: document.getElementById('arcs'),
+        projection: 'mercator',
+        geographyConfig: {
+          highlightBorderColor: '#bada55',
+         popupTemplate: function(geography, data) {
+            if ( data )
+                return '<div class="hoverinfo" style="max-width: 300px;"><strong>' + geography.properties.name + '</strong> <br />' +  data.desc + ' </div>'
+          },
+          highlightBorderWidth: 1
+        },
+
+
+        fills: {
+        'Visited': '#306596',
+        defaultFill: '#abdda4'
+      },
+      data:{
+        "ISR": {
+            "fillKey": "Visited",
+            desc:""
+        }, 
+        "USA": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "AUS": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "GBR": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "ZAF": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "CRI": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "DEU": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "SEN": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "SWE": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "TZA": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "RUS": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "MEX": {
+            "fillKey": "Visited",
+            desc:""
+        },
+        "CHN": {
+            "fillKey": "Visited",
+            desc:""
+        } ,
+        "CAN": {
+            "fillKey": "Visited",
+            desc:""
+        }
+}
+      });
+
+
+    var presidentialTrips = [
+        {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 32.066667,
+                longitude: 34.783333 
+            }
+        },
+        {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 19.433333,
+                longitude: -99.133333
+            }
+        },
+        {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 9.933333,
+                longitude: -84.083333
+            }
+        },
+        {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 54.597 ,
+                longitude: -5.93
+            }
+        },
+        {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 52.516667,
+                longitude: 13.383333 
+            }
+        },
+        {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 14.692778,
+                longitude: -17.446667
+            }
+        },{
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: -35.3075,
+                longitude: 149.1244
+            }
+        },
+        {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: -26.204444,
+                longitude: 28.045556
+            }
+        },
+                {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: -6.8,
+                longitude: 39.283333 
+            }
+        },
+                {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 59.329444,
+                longitude: 18.068611
+            }
+        },
+                {
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 59.95 ,
+                longitude: 30.3
+            }
+        },{
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 39.91,
+                longitude: -77.02
+            }
+        },{
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 39.55,
+                longitude: 116.2
+            }
+        },{
+            origin: {
+                latitude: 45.47384,
+                longitude: -122.777302
+            },
+            destination: {
+                latitude: 45.27,
+                longitude: -75.42
+            }
+        }
+    ];
+
+    function addArcs(index) {
+        arcs.arc( presidentialTrips.slice(0, index) , {strokeWidth: 2});
+        if ( index < presidentialTrips.length ) {
+            window.setTimeout(function() {
+                addArcs(++index)
+            }, 300);
+        }
+    }
+
+    addArcs(1);
+	</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery UI easing Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        background-color: #f5f5f5;
+      }
+
+    .quizWrapper {
+		height:1000px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+		position: relative;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+     h1 {text-align:center;}
+    .nav-list > li > a {
+		padding: 0px 15px;
+	}
+    #movebox {
+    	position: absolute;
+		width: 100px;
+		height: 100px;
+		margin: auto;
+		top: 20px;
+		left: 0;
+		right: 0;
+    }
+    
+	#scrollInBox {
+		width:300px;
+		height:150px;
+		position: fixed;
+		color:#fff;
+		background: none repeat scroll 0 0 blue;
+		bottom: 20px;
+	}
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+    <div class="row">
+    	<h1>jQuery UI easing Demo</h1>
+    </div>
+    <div class="row">
+    	<ul class="nav nav-list span2">
+    		<li>Timing: <input name="time" id="timingbox" class="input-mini" value="1000"></li>
+    		<li>Current: <input name="current" id="currentbox" class="input-medium"></li>
+			<li><a href="#">linear</a></li>
+			<li><a href="#">swing</a></li>
+			<li><a href="#">easeInQuad</a></li>
+			<li><a href="#">easeOutQuad</a></li>
+			<li><a href="#">easeInOutQuad</a></li>
+			<li><a href="#">easeInCubic</a></li>
+			<li><a href="#">easeOutCubic</a></li>
+			<li><a href="#">easeInOutCubic</a></li>
+			<li><a href="#">easeInQuart</a></li>
+			<li><a href="#">easeOutQuart</a></li>
+			<li><a href="#">easeInOutQuart</a></li>
+			<li><a href="#">easeInQuint</a></li>
+			<li><a href="#">easeOutQuint</a></li>
+			<li><a href="#">easeInOutQuint</a></li>
+			<li><a href="#">easeInExpo</a></li>
+			<li><a href="#">easeOutExpo</a></li>
+			<li><a href="#">easeInOutExpo</a></li>
+			<li><a href="#">easeInSine</a></li>
+			<li><a href="#">easeOutSine</a></li>
+			<li><a href="#">easeInOutSine</a></li>
+			<li><a href="#">easeInCirc</a></li>
+			<li><a href="#">easeOutCirc</a></li>
+			<li><a href="#">easeInOutCirc</a></li>
+			<li><a href="#">easeInElastic</a></li>
+			<li><a href="#">easeOutElastic</a></li>
+			<li><a href="#">easeInOutElastic</a></li>
+			<li><a href="#">easeInBack</a></li>
+			<li><a href="#">easeOutBack</a></li>
+			<li><a href="#">easeInOutBack</a></li>
+			<li><a href="#">easeInBounce</a></li>
+			<li><a href="#">easeOutBounce</a></li>
+			<li><a href="#">easeInOutBounce</a></li>
+		</ul>
+		<div class="quizWrapper span9">
+			<div id="movebox" class="btn btn-primary"></div>
+		</div>
+		</div>
+		
+	</div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/easing.js"></script>
+    <script>
+(function( $ ) {
+	var winHeight = window.innerHeight;
+	$('.quizWrapper').height(winHeight);
+	$('.nav-list li a').on('click',function(e){
+		e.preventDefault();
+		var $this = $(this),
+			easing = $this.text(),
+			timming = parseInt($('#timingbox').val());
+			moveBlock = $('#movebox');
+		moveBlock.html(easing+'<br>'+timming);
+		$('.nav-list li').removeClass('active');
+		$this.parent().addClass('active');
+		$('#currentbox').val(easing);
+		moveBlock.animate({'top':winHeight - 200},timming,easing,function(){
+			moveBlock.delay(800).animate({'top':20},timming,easing,function(){
+				moveBlock.html(moveBlock.html()+'<br>Click me to replay');
+			});
+		});
+	});
+	$('#movebox').on('click',function(){
+		var easing = $('.nav-list li.active').find('a').text(),
+			timming = parseInt($('#timingbox').val()),
+			moveBlock = $('#movebox');
+		$('#currentbox').val(easing);
+		moveBlock.html(easing+'<br>'+timming);
+		moveBlock.animate({'top':winHeight - 200},timming,easing,function(){
+			moveBlock.delay(800).animate({'top':20},timming,easing,function(){
+				moveBlock.html(moveBlock.html()+'<br>Click me to replay');
+			});
+		});
+	});
+
+
+
+})( jQuery );
+	</script>
+
+  </body>
+</html>
