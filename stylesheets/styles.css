@@ -606,7 +606,7 @@ strong {
 
 .wrapper {
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 64px auto 0;
   position: relative;
   padding: 0 20px;
 }
@@ -767,7 +767,7 @@ dt {
 }
 #header nav li.fork {
   float: right;
-  margin-left: 0px;
+  margin-left: 5px;
 }
 #header nav li.downloads {
   display: none;
@@ -775,9 +775,12 @@ dt {
   margin-left: 6px;
 }
 #header nav li.title {
-  float: right;
+  float: none;
   margin-right: 10px;
-  font-size: 11px;
+  width: 70%;
+  font-size: 20px;
+  display: inline-block;
+  text-align: center;
 }
 
 section {

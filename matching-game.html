@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Examples by drifterz28</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+        <style>
+        #puzzle {
+            border: 1px solid blue;
+            box-sizing: content-box;
+            margin: 0 auto;
+            -webkit-perspective: 1000;
+            perspective: 1000;
+        }
+        .card_front, .card_back {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .card_back {
+            z-index: 2;
+            background: lightgrey;
+        }
+        .card_front {
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+        .innerdiv {
+            border: 1px solid green;
+            background-repeat: no-repeat;
+            box-sizing: border-box;
+            float: left;
+            transition: 0.6s;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        .innerdiv.active {
+            border: 1px solid blue;
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+        .innerdiv.match {
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            opacity: .6;
+        }
+        .innerdiv:hover {
+            border: 1px solid red;
+        }
+        .innerdiv > div {
+            width: 100%;
+            height: 100%;
+        }
+        .innerdiv.blank {
+            background: #000;
+            background-image: none !important;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="dropdown">Examples</li>
+          <li class="title">Matching Puzzle game</li>
+          <li class="fork"><a href="https://github.com/drifterz28/examples">View On GitHub</a></li>
+          <li class="fork"><a href="#information">About this</a></li>
+        </nav>
+      </div><!-- end header -->
+    <div class="wrapper">
+      <section>
+        <script id="js-puzzle_widget" src="javascripts/matching-puzzle.js" async></script>
+      </section>
+      <section id="information">
+        <p>I created this game as a start to building JavaScript based games, simple in design and uses images from <a href="http://lorempixel.com" target="_blank">lorempixel.com</a>.</p>
+        <p>It all starts on a 8 x 8 grid and populates the images based off of the x value of the loop, shuffles the images and places them on the board.</p>
+      </section>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+  </body>
+</html>
