@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Examples by drifterz28</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <style>
+      @font-face {
+        font-family: 'icomoon';
+        src:url('fonts/icomoon.eot?-pj0ngg');
+        src:url('fonts/icomoon.eot?#iefix-pj0ngg') format('embedded-opentype'),
+          url('fonts/icomoon.woff?-pj0ngg') format('woff'),
+          url('fonts/icomoon.ttf?-pj0ngg') format('truetype'),
+          url('fonts/icomoon.svg?-pj0ngg#icomoon') format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      [class^="icon-"], [class*=" icon-"] {
+        font-family: 'icomoon';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .icon-spades:before {
+        content: "\e600";
+      }
+      .icon-clubs:before {
+        content: "\e601";
+      }
+      .icon-diamonds:before {
+        content: "\e602";
+      }
+      .icon-heart:before {
+        content: "\e603";
+      }
+      .card {
+        height: 150px;
+        width: 100px;
+        border: 1px solid;
+        box-sizing: border-box;
+        background: #fff;
+        margin: 2px;
+        position: relative;
+      }
+      .card::before {
+        content: attr(data-face);
+        width: 100%;
+        text-align: center;
+        display: block;
+        line-height: 144px;
+        font-size: 60px;
+      }
+      .spades,
+      .clubs {
+        color: #000;
+      }
+      .diamonds,
+      .heart {
+        color: #f00;
+      }
+      .card .top {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        font-size: 35px;
+      }
+      .card .bottom {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        font-size: 35px;
+      }
+
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="dropdown">Examples</li>
+          <li class="title">Matching Puzzle game</li>
+          <li class="fork"><a href="https://github.com/drifterz28/examples">View On GitHub</a></li>
+          <li class="fork"><a href="#information">About this</a></li>
+        </nav>
+      </div><!-- end header -->
+    <div class="wrapper">
+      <section>
+        <script id="js-puzzle_widget" src="javascripts/solitaire.js" async></script>
+      </section>
+      <section id="information">
+        <p>I created this game as a start to building JavaScript based games, simple in design and uses images from <a href="http://lorempixel.com" target="_blank">lorempixel.com</a>.</p>
+        <p>It all starts on a 8 x 8 grid and populates the images based off of the x value of the loop, shuffles the images and places them on the board.</p>
+      </section>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+  </body>
+</html>

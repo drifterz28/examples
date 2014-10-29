@@ -6,26 +6,39 @@
     <title>Examples by drifterz28</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <style>
+        <style>
         #puzzle {
             border: 1px solid blue;
             box-sizing: content-box;
+            background: aliceblue;
             margin: 0 auto;
             -webkit-perspective: 1000;
             perspective: 1000;
         }
-        .card_front, .card_back {
+        .othello_disc {
+            border-radius: 50%;
+            height: 75%;
+            margin: 0 auto;
+            position: absolute;
+            left: 12%;
+            top: 12%;
+            width: 75%;
+            transition: 0.6s;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+        ._black, ._white {
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
         }
-        .card_back {
+        ._white {
             z-index: 2;
-            background: lightgrey;
+            background: white;
+            box-shadow: 0px 0px 8px black;
         }
-        .card_front {
+        ._black {
+            background: black;
+            box-shadow: 0px 0px 8px white;
             -webkit-transform: rotateY(180deg);
             transform: rotateY(180deg);
         }
@@ -39,26 +52,15 @@
             transform-style: preserve-3d;
             position: relative;
         }
-        .innerdiv.active {
-            border: 1px solid blue;
+        .innerdiv.black {
             -webkit-transform: rotateY(180deg);
             transform: rotateY(180deg);
         }
-        .innerdiv.match {
-            -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-            opacity: .6;
+        .innerdiv.active {
+            border: 1px solid blue;
         }
         .innerdiv:hover {
             border: 1px solid red;
-        }
-        .innerdiv > div {
-            width: 100%;
-            height: 100%;
-        }
-        .innerdiv.blank {
-            background: #000;
-            background-image: none !important;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -69,14 +71,14 @@
       <div id="header">
         <nav>
           <li class="dropdown">Examples</li>
-          <li class="title">Matching Puzzle game</li>
+          <li class="title">Othello game</li>
           <li class="fork"><a href="https://github.com/drifterz28/examples">View On GitHub</a></li>
           <li class="fork"><a href="#information">About this</a></li>
         </nav>
       </div><!-- end header -->
     <div class="wrapper">
       <section>
-        <script id="js-puzzle_widget" src="javascripts/matching-puzzle.js" async></script>
+        <script id="js-puzzle_widget" src="javascripts/othello.js" async></script>
       </section>
       <section id="information">
         <p>I created this game as a start to building JavaScript based games, simple in design and uses images from <a href="http://lorempixel.com" target="_blank">lorempixel.com</a>.</p>
